@@ -342,9 +342,7 @@ export function ResumePDF() {
               <Text style={styles.sectionTitle}>Langues</Text>
               {languages.map((lang) => (
                 <View key={lang.name} style={{ marginBottom: 6 }}>
-                  <Text style={styles.languageName}>
-                    {lang.flag} {lang.name}
-                  </Text>
+                  <Text style={styles.languageName}>{lang.name}</Text>
                   <Text style={styles.languageLevel}>{lang.level}</Text>
                 </View>
               ))}
