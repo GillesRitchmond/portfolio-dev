@@ -1,8 +1,22 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Code2, Database, TestTube, Rocket, Heart, Target, Zap } from "lucide-react"
+import {
+  Code2,
+  Database,
+  TestTube,
+  Rocket,
+  Heart,
+  Target,
+  Zap,
+  Briefcase,
+  GraduationCap,
+  Globe,
+  Calendar,
+  MapPin,
+} from "lucide-react"
 import type { Metadata } from "next"
 import { SITE_CONFIG, TECH_STACK } from "@/lib/constants"
+import { RESUME_DATA } from "@/lib/resume-data"
 
 export const metadata: Metadata = {
   title: "À propos - " + SITE_CONFIG.name,
@@ -19,10 +33,12 @@ export default function AboutPage() {
     {} as Record<string, string[]>,
   )
 
+  const { experiences, education, languages } = RESUME_DATA
+
   return (
     <div className="container py-12 md:py-24 mx-auto">
       {/* Hero Section */}
-      <section className="mb-16 space-y-6 md:mb-24">
+      <section className="mb-16 space-y-6 md:mb-24 animate-in fade-in slide-in-from-bottom-4 duration-700">
         <h1 className="text-4xl font-bold tracking-tight text-balance sm:text-5xl md:text-6xl">À propos de moi</h1>
         <p className="max-w-3xl text-lg text-muted-foreground text-pretty leading-relaxed md:text-xl">
           Je suis <span className="font-semibold text-foreground">{SITE_CONFIG.author.name}</span>, développeur web
@@ -32,11 +48,116 @@ export default function AboutPage() {
         </p>
       </section>
 
+      {/* Stats rapides */}
+      <section className="mb-16 md:mb-24 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          <div className="rounded-lg border border-border/40 bg-muted/30 p-6 text-center">
+            <p className="text-3xl font-bold text-primary">+4</p>
+            <p className="mt-1 text-sm text-muted-foreground">Années d&apos;expérience</p>
+          </div>
+          <div className="rounded-lg border border-border/40 bg-muted/30 p-6 text-center">
+            <p className="text-3xl font-bold text-primary">Bac+5</p>
+            <p className="mt-1 text-sm text-muted-foreground">Niveau d&apos;études</p>
+          </div>
+          <div className="rounded-lg border border-border/40 bg-muted/30 p-6 text-center">
+            <p className="text-3xl font-bold text-primary">3</p>
+            <p className="mt-1 text-sm text-muted-foreground">Langues parlées</p>
+          </div>
+          <div className="rounded-lg border border-border/40 bg-muted/30 p-6 text-center">
+            <p className="text-3xl font-bold text-primary">Full-Stack</p>
+            <p className="mt-1 text-sm text-muted-foreground">Profil technique</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Parcours professionnel */}
+      <section className="mb-16 md:mb-24 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+        <div className="mb-8 flex items-center gap-3">
+          <Briefcase className="h-7 w-7 text-primary" />
+          <h2 className="text-3xl font-bold tracking-tight">Parcours professionnel</h2>
+        </div>
+
+        <div className="relative space-y-0">
+          <div className="absolute left-[19px] top-2 bottom-2 w-px bg-border md:left-[23px]" />
+
+          {experiences.map((exp, index) => (
+            <div key={index} className="relative pl-12 pb-10 last:pb-0 md:pl-16">
+              <div className="absolute left-2.5 top-1.5 h-4 w-4 rounded-full border-2 border-primary bg-background md:left-3.5 md:h-5 md:w-5" />
+
+              <Card className="transition-all hover:shadow-md">
+                <CardHeader>
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                      <CardTitle className="text-lg">{exp.title}</CardTitle>
+                      <p className="mt-1 font-semibold text-primary">{exp.company}</p>
+                    </div>
+                    <div className="flex flex-col gap-1 text-sm text-muted-foreground sm:items-end">
+                      <span className="flex items-center gap-1">
+                        <Calendar className="h-3.5 w-3.5" />
+                        {exp.period}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <MapPin className="h-3.5 w-3.5" />
+                        {exp.location}
+                      </span>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="mb-3 text-muted-foreground leading-relaxed">{exp.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {exp.technologies.map((tech) => (
+                      <Badge key={tech} variant="secondary">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Formation */}
+      <section className="mb-16 md:mb-24 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
+        <div className="mb-8 flex items-center gap-3">
+          <GraduationCap className="h-7 w-7 text-primary" />
+          <h2 className="text-3xl font-bold tracking-tight">Formation</h2>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          {education.map((edu, index) => (
+            <Card key={index} className="transition-all hover:shadow-md">
+              <CardHeader>
+                <CardTitle className="text-lg">{edu.degree}</CardTitle>
+                <p className="font-semibold text-primary">{edu.school}</p>
+                <div className="flex gap-4 text-sm text-muted-foreground">
+                  <span className="flex items-center gap-1">
+                    <Calendar className="h-3.5 w-3.5" />
+                    {edu.period}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <MapPin className="h-3.5 w-3.5" />
+                    {edu.location}
+                  </span>
+                </div>
+              </CardHeader>
+              {edu.description && (
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed">{edu.description}</p>
+                </CardContent>
+              )}
+            </Card>
+          ))}
+        </div>
+      </section>
+
       {/* Tech Stack */}
-      <section className="mb-16 md:mb-24">
+      <section className="mb-16 md:mb-24 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-400">
         <h2 className="mb-8 text-3xl font-bold tracking-tight">Stack technique</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <Card>
+          <Card className="transition-all hover:shadow-md">
             <CardHeader>
               <Code2 className="mb-2 h-8 w-8 text-primary" />
               <CardTitle>Langages & Frameworks</CardTitle>
@@ -63,7 +184,7 @@ export default function AboutPage() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="transition-all hover:shadow-md">
             <CardHeader>
               <Database className="mb-2 h-8 w-8 text-primary" />
               <CardTitle>Bases de données</CardTitle>
@@ -80,7 +201,7 @@ export default function AboutPage() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="transition-all hover:shadow-md">
             <CardHeader>
               <TestTube className="mb-2 h-8 w-8 text-primary" />
               <CardTitle>Tests & DevOps</CardTitle>
@@ -109,11 +230,31 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Langues */}
+      <section className="mb-16 md:mb-24 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500">
+        <div className="mb-8 flex items-center gap-3">
+          <Globe className="h-7 w-7 text-primary" />
+          <h2 className="text-3xl font-bold tracking-tight">Langues</h2>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-3">
+          {languages.map((lang) => (
+            <Card key={lang.name} className="text-center transition-all hover:shadow-md">
+              <CardContent className="pt-6">
+                <span className="text-4xl">{lang.flag}</span>
+                <p className="mt-3 text-lg font-semibold">{lang.name}</p>
+                <p className="text-sm text-muted-foreground">{lang.level}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
       {/* Expertise Areas */}
       <section className="mb-16 md:mb-24">
         <h2 className="mb-8 text-3xl font-bold tracking-tight">Domaines d&apos;expertise</h2>
         <div className="grid gap-6 md:grid-cols-2">
-          <Card>
+          <Card className="transition-all hover:shadow-md">
             <CardHeader>
               <Rocket className="mb-2 h-8 w-8 text-primary" />
               <CardTitle>Développement d&apos;APIs</CardTitle>
@@ -126,7 +267,7 @@ export default function AboutPage() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="transition-all hover:shadow-md">
             <CardHeader>
               <Zap className="mb-2 h-8 w-8 text-primary" />
               <CardTitle>CI/CD & Automatisation</CardTitle>
@@ -139,7 +280,7 @@ export default function AboutPage() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="transition-all hover:shadow-md">
             <CardHeader>
               <TestTube className="mb-2 h-8 w-8 text-primary" />
               <CardTitle>Tests automatisés</CardTitle>
@@ -152,7 +293,7 @@ export default function AboutPage() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="transition-all hover:shadow-md">
             <CardHeader>
               <Database className="mb-2 h-8 w-8 text-primary" />
               <CardTitle>Architecture & Bases de données</CardTitle>
@@ -171,7 +312,7 @@ export default function AboutPage() {
       <section className="mb-16 md:mb-24">
         <h2 className="mb-8 text-3xl font-bold tracking-tight">Ma philosophie</h2>
         <div className="grid gap-6 md:grid-cols-3">
-          <Card>
+          <Card className="transition-all hover:shadow-md">
             <CardHeader>
               <Heart className="mb-2 h-8 w-8 text-primary" />
               <CardTitle>Qualité du code</CardTitle>
@@ -184,7 +325,7 @@ export default function AboutPage() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="transition-all hover:shadow-md">
             <CardHeader>
               <Target className="mb-2 h-8 w-8 text-primary" />
               <CardTitle>Apprentissage continu</CardTitle>
@@ -197,7 +338,7 @@ export default function AboutPage() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="transition-all hover:shadow-md">
             <CardHeader>
               <Zap className="mb-2 h-8 w-8 text-primary" />
               <CardTitle>Performance & Scalabilité</CardTitle>

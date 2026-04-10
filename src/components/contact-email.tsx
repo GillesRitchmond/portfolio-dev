@@ -2,22 +2,14 @@ import { SITE_CONFIG } from '@/lib/constants';
 import { EmailData } from '@/lib/types';
 import {
   Body,
-  Button,
   Container,
   Head,
   Hr,
   Html,
-  Img,
-  Link,
   Preview,
   Section,
   Text,
 } from '@react-email/components';
-
-// const baseUrl = process.env.VERCEL_URL
-//   ? `https://${process.env.VERCEL_URL}`
-//   : '';
-
 
 const main = {
   backgroundColor: '#f6f9fc',
@@ -48,36 +40,6 @@ const paragraph = {
   textAlign: 'left' as const,
 };
 
-const paragraphRight = {
-  color: '#525f7f',
-  fontSize: '16px',
-  lineHeight: '24px',
-  textAlign: 'right' as const,
-};
-
-const anchor = {
-  color: '#556cd6',
-};
-
-const button = {
-  backgroundColor: '#656ee8',
-  borderRadius: '5px',
-  color: '#fff',
-  fontSize: '16px',
-  fontWeight: 'bold',
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  display: 'block',
-  padding: '10px',
-};
-
-const footer = {
-  color: '#8898aa',
-  fontSize: '12px',
-  lineHeight: '16px',
-};
-
-
 export function ContactEmail({ name, email, subject, message }: EmailData) {
   return (
     <Html>
@@ -99,7 +61,7 @@ export function ContactEmail({ name, email, subject, message }: EmailData) {
                   <td style={paragraph}>
                     <b>Nom :</b>
                   </td>
-                  <td style={paragraphRight}>
+                  <td style={paragraph}>
                     {name}
                   </td>
                 </tr>
@@ -107,7 +69,7 @@ export function ContactEmail({ name, email, subject, message }: EmailData) {
                   <td style={paragraph}>
                     <b>Email :</b>
                   </td>
-                  <td style={paragraphRight}>
+                  <td style={paragraph}>
                     {email}
                   </td>
                 </tr>
@@ -115,7 +77,7 @@ export function ContactEmail({ name, email, subject, message }: EmailData) {
                   <td style={paragraph}>
                     <b>Sujet :</b>
                   </td>
-                  <td style={paragraphRight}>
+                  <td style={paragraph}>
                     {subject}
                   </td>
                 </tr>
@@ -125,7 +87,7 @@ export function ContactEmail({ name, email, subject, message }: EmailData) {
             <Text style={paragraph}>
               <b>Message :</b>
             </Text>
-            <Text style={paragraphRight}>
+            <Text style={paragraph}>
               {message}
             </Text>
           </Section>
